@@ -18,4 +18,6 @@ scala -classpath lightning-scala-assembly-0.1.0.jar
 import org.viz.lightning.Lightning
 
 val lgn = new Lightning(host="http://my-lightning-instance.herokuapp.com")
+
+lgn.createSession()
 lgn.createSession(Some("provide an optional session name"))
