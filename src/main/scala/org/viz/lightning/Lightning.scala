@@ -5,7 +5,7 @@ import org.json4s._
 import org.json4s.JsonDSL.WithDouble._
 import org.json4s.native.JsonMethods._
 
-class Lightning (var host: String) {
+class Lightning (private var host: String) {
 
   var session: Option[Int] = None
   var auth: Option[(String, String)] = None
@@ -37,6 +37,16 @@ class Lightning (var host: String) {
 
     session = Some(id)
 
+  }
+
+  def setSession(id: Int): this.type = {
+    this.session = Some(id)
+    this
+  }
+
+  def setHost(host: String): this.type = {
+    this.host = host
+    this
   }
 
 }
