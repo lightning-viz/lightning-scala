@@ -1,5 +1,7 @@
 package org.viz.lightning
 
-class Visualization {
+class Visualization(lightning: Lightning, id: Int) {
+
+
 
 }
