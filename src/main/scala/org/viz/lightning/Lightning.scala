@@ -1,9 +1,7 @@
 package org.viz.lightning
 
 import scalaj.http._
-import org.json4s._
-import org.json4s.JsonDSL.WithDouble._
-import org.json4s.native.JsonMethods._
+import nl.typeset.sonofjson._
 
 class Lightning (private var host: String) {
 
@@ -12,12 +10,12 @@ class Lightning (private var host: String) {
 
   def this() = this("http://localhost:3000")
 
-  def createSession(name: Option[String] = None) {
+  def createSession(sessionName: Option[String] = None) {
 
     val url = host + "/sessions/"
 
-    val data = name.isEmpty match {
-      case false => compact(render("name" -> name))
+    val data = sessionName.isEmpty match {
+      case false => render(parse("""{ "name" : "name" }"""))
       case true => "{}"
     }
 
@@ -29,13 +27,11 @@ class Lightning (private var host: String) {
       request.auth(auth.get._1, auth.get._2)
     }
 
-    implicit val formats = DefaultFormats
-
     val response = request.asString
     val json = parse(response.body)
-    val id = (json \ "id").extract[Int]
+    val id : String = json.id
 
-    session = Some(id)
+    session = Some(id.toInt)
 
   }
 
