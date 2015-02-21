@@ -1,7 +1,10 @@
 package org.viz.lightning
 
 import scalaj.http._
-import nl.typeset.sonofjson._
+import org.json4s._
+import org.json4s.JsonDSL.WithDouble._
+import org.json4s.native.JsonMethods._
+
 
 class Lightning (private var host: String) {
 
@@ -15,7 +18,7 @@ class Lightning (private var host: String) {
     val url = host + "/sessions/"
 
     val data = sessionName.isEmpty match {
-      case false => render(parse("""{ "name" : "name" }"""))
+      case false => compact(render("name" -> sessionName))
       case true => "{}"
     }
 
@@ -27,20 +30,46 @@ class Lightning (private var host: String) {
       request.auth(auth.get._1, auth.get._2)
     }
 
+    implicit val formats = DefaultFormats
+
     val response = request.asString
     val json = parse(response.body)
-    val id : String = json.id
+    val id = (json \ "id").extract[Int]
 
     session = Some(id.toInt)
 
   }
 
-  def setSession(id: Int): this.type = {
+  def plot(vizType: String, data: Map[String, List[Double]]) {
+
+    val url = host + "/sessions/" + session + "/visualizations"
+
+    implicit val formats = DefaultFormats
+
+    val payload = compact(render(("data" -> data) ~ ("type" -> vizType)))
+
+    val request = Http(url).postData(payload)
+      .header("content-type", "application/json")
+      .header("accept", "text/plain")
+
+    if (auth.nonEmpty) {
+      request.auth(auth.get._1, auth.get._2)
+    }
+
+    val response = request.asString
+    val json = parse(response.body)
+    val id = (json \ "id").extract[Int]
+
+    new Visualization(this, id)
+
+  }
+
+  def useSession(id: Int): this.type = {
     this.session = Some(id)
     this
   }
 
-  def setHost(host: String): this.type = {
+  def useHost(host: String): this.type = {
     this.host = host
     this
   }
