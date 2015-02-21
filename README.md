@@ -21,3 +21,9 @@ val lgn = new Lightning(host="http://my-lightning-instance.herokuapp.com")
 
 lgn.createSession()
 lgn.createSession(Some("provide an optional session name"))
+```
+
+###creating a generic plot
+```
+lgn.plot("line", Map("series" -> List(1,1,2,3,9,20)))
+```
