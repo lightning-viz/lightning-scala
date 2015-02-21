@@ -4,11 +4,12 @@ import scalaj.http._
 import org.json4s._
 import org.json4s.JsonDSL.WithDouble._
 import org.json4s.native.JsonMethods._
+import org.json4s.native.Serialization
 
 
 class Lightning (private var host: String) {
 
-  var session: Option[Int] = None
+  var session: Int = -1
   var auth: Option[(String, String)] = None
 
   def this() = this("http://localhost:3000")
@@ -18,7 +19,7 @@ class Lightning (private var host: String) {
     val url = host + "/sessions/"
 
     val data = sessionName.isEmpty match {
-      case false => compact(render("name" -> sessionName))
+      case false => compact(render("name" -> sessionName.get))
       case true => "{}"
     }
 
@@ -36,19 +37,22 @@ class Lightning (private var host: String) {
     val json = parse(response.body)
     val id = (json \ "id").extract[Int]
 
-    session = Some(id.toInt)
+    session = id.toInt
 
   }
 
-  def plot(vizType: String, data: Map[String, List[Double]]) {
+  def plot(vizType: String, data: Map[String, List[Any]]) {
 
-    val url = host + "/sessions/" + session + "/visualizations"
+    this.checkSession()
+
+    val url = host + "/sessions/" + session + "/visualizations/"
 
     implicit val formats = DefaultFormats
 
-    val payload = compact(render(("data" -> data) ~ ("type" -> vizType)))
+    val blob = Map("data" -> data, "type" -> vizType)
+    val payload = Serialization.write(blob)
 
-    val request = Http(url).postData(payload)
+    val request = Http(url).postData(payload).method("POST")
       .header("content-type", "application/json")
       .header("accept", "text/plain")
 
@@ -65,13 +69,21 @@ class Lightning (private var host: String) {
   }
 
   def useSession(id: Int): this.type = {
-    this.session = Some(id)
+    this.session = id
     this
   }
 
   def useHost(host: String): this.type = {
     this.host = host
     this
+  }
+
+  def checkSession() = {
+
+    session match {
+      case -1 => this.createSession()
+    }
+
   }
 
 }
