@@ -30,7 +30,7 @@ class Lightning (private var host: String) {
 
   }
 
-  def plot(vizType: String, data: Map[String, List[Any]]) {
+  def plot(vizType: String, data: Map[String, List[Any]]): Visualization = {
 
     this.checkSession()
 
@@ -57,15 +57,13 @@ class Lightning (private var host: String) {
     this
   }
 
-  def checkSession() = {
-
-    session match {
-      case -1 => this.createSession()
+  def checkSession() {
+    if (session == -1) {
+      this.createSession()
     }
-
   }
 
-  def post(url: String, payload: String, auth: Option[(String, String)]): Int = {
+  private def post(url: String, payload: String, auth: Option[(String, String)]): Int = {
 
     val request = Http(url).postData(payload).method("POST")
       .header("content-type", "application/json")
