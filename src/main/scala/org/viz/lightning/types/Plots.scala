@@ -1,13 +1,17 @@
 package org.viz.lightning.types
 
-class Plots {
+import org.viz.lightning.types.utils.DataValidator
 
-  def line(series: Array[Double]) = {
-    Map("series" -> series.toList)
-  }
+object Plots {
 
-  def scatter(x: Array[Double], y: Array[Double]) = {
-    Map("points" -> x.zip(y).toList)
-  }
+  val line = new DataValidator[Array[Double]](data =>
+    Map("series" -> data.toList)
+  )
+
+  val scatter = new DataValidator[(Array[Double], Array[Double])](data =>
+    Map(
+      "points" -> data._1.zip(data._2).map(x => List(x._1, x._2)).toList
+    )
+  )
 
 }

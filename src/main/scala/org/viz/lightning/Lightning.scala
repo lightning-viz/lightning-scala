@@ -1,12 +1,16 @@
 package org.viz.lightning
 
-import scalaj.http._
+import org.viz.lightning.types.Plots
+
+import scala.language.dynamics
+import scala.reflect.runtime.universe._
+
 import org.json4s._
 import org.json4s.native.JsonMethods._
 import org.json4s.native.Serialization
+import scalaj.http._
 
-
-class Lightning (private var host: String) {
+class Lightning (private var host: String) extends Dynamic {
 
   var session: Int = -1
   var auth: Option[(String, String)] = None
@@ -30,7 +34,7 @@ class Lightning (private var host: String) {
 
   }
 
-  def plot(vizType: String, data: Map[String, List[Any]]): Visualization = {
+  def plot(vizType: String, data: Map[String, Any]): Visualization = {
 
     this.checkSession()
 
@@ -78,6 +82,15 @@ class Lightning (private var host: String) {
     val response = request.asString
     val json = parse(response.body)
     (json \ "id").extract[Int]
+
+  }
+
+  val functionMap = Map("line" -> Plots.line, "scatter" -> Plots.scatter)
+
+  def applyDynamic[T: TypeTag](name: String)(args: T): Visualization = {
+
+    val output = functionMap(name).clean[T](args)
+    plot(name, output)
 
   }
 
