@@ -24,7 +24,7 @@ lgn.createSession(Some("provide an optional session name"))
 ```
 
 ###creating a visualization
-The client provides methods for the default visualization types included with Lightning
+Methods available for all the default visualization types included with Lightning
 ```
 lgn.line(Array(1,1,2,3,9,20))
 lgn.scatter(Array(0.1,0.2,0.3), Array(0.9,0.1,0.5))
