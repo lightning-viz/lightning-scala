@@ -4,14 +4,20 @@ import org.viz.lightning.types.utils.DataValidator
 
 object Plots {
 
-  val line = new DataValidator[Array[Double]](data =>
-    Map("series" -> data.toList)
-  )
+  val lookup = Map({
 
-  val scatter = new DataValidator[(Array[Double], Array[Double])](data =>
-    Map(
-      "points" -> data._1.zip(data._2).map(x => List(x._1, x._2)).toList
+    "line" -> new DataValidator[Array[Double]](data =>
+      Map(
+        "series" -> data.toList
+      )
     )
-  )
+
+    "scatter" -> new DataValidator[(Array[Double], Array[Double])](data =>
+      Map(
+        "points" -> (data._1, data._2).zipped.map((x, y) => List(x, y)).toList
+      )
+    )
+
+  })
 
 }

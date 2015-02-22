@@ -1,6 +1,6 @@
 package org.viz.lightning
 
-import org.viz.lightning.types.Plots
+import org.viz.lightning.types.{Three, Plots}
 
 import scala.language.dynamics
 import scala.reflect.runtime.universe._
@@ -85,11 +85,11 @@ class Lightning (private var host: String) extends Dynamic {
 
   }
 
-  val functionMap = Map("line" -> Plots.line, "scatter" -> Plots.scatter)
+  def types = Plots.lookup ++ Three.lookup
 
   def applyDynamic[T: TypeTag](name: String)(args: T): Visualization = {
 
-    val output = functionMap(name).clean[T](args)
+    val output = types(name).clean[T](args)
     plot(name, output)
 
   }
