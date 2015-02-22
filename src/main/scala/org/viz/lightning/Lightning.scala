@@ -2,7 +2,6 @@ package org.viz.lightning
 
 import scalaj.http._
 import org.json4s._
-import org.json4s.JsonDSL.WithDouble._
 import org.json4s.native.JsonMethods._
 import org.json4s.native.Serialization
 
@@ -18,26 +17,16 @@ class Lightning (private var host: String) {
 
     val url = host + "/sessions/"
 
-    val data = sessionName.isEmpty match {
-      case false => compact(render("name" -> sessionName.get))
+    implicit val formats = DefaultFormats
+
+    val payload = sessionName.isEmpty match {
+      case false => Serialization.write( Map("name" -> sessionName.get) )
       case true => "{}"
     }
 
-    val request = Http(url).postData(data)
-      .header("content-type", "application/json")
-      .header("accept", "text/plain")
+    val id = post(url, payload, auth)
 
-    if (auth.nonEmpty) {
-      request.auth(auth.get._1, auth.get._2)
-    }
-
-    implicit val formats = DefaultFormats
-
-    val response = request.asString
-    val json = parse(response.body)
-    val id = (json \ "id").extract[Int]
-
-    session = id.toInt
+    session = id
 
   }
 
@@ -52,19 +41,9 @@ class Lightning (private var host: String) {
     val blob = Map("data" -> data, "type" -> vizType)
     val payload = Serialization.write(blob)
 
-    val request = Http(url).postData(payload).method("POST")
-      .header("content-type", "application/json")
-      .header("accept", "text/plain")
+    val id = post(url, payload, auth)
 
-    if (auth.nonEmpty) {
-      request.auth(auth.get._1, auth.get._2)
-    }
-
-    val response = request.asString
-    val json = parse(response.body)
-    val id = (json \ "id").extract[Int]
-
-    new Visualization(this, id)
+    new Visualization(this, id.toInt)
 
   }
 
@@ -83,6 +62,24 @@ class Lightning (private var host: String) {
     session match {
       case -1 => this.createSession()
     }
+
+  }
+
+  def post(url: String, payload: String, auth: Option[(String, String)]): Int = {
+
+    val request = Http(url).postData(payload).method("POST")
+      .header("content-type", "application/json")
+      .header("accept", "text/plain")
+
+    if (auth.nonEmpty) {
+      request.auth(auth.get._1, auth.get._2)
+    }
+
+    implicit val formats = DefaultFormats
+
+    val response = request.asString
+    val json = parse(response.body)
+    (json \ "id").extract[Int]
 
   }
 
