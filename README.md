@@ -6,9 +6,9 @@ Build the project using `sbt` and the [assembly](https://github.com/sbt/sbt-asse
 ```
 sbt assembly
 ```
-To then use lightning in the scala REPL, just add the jar to your classpath
+To then use lightning in the scala REPL, just add the jar to your classpath (here we are assuming you launch from inside `lightning-scala`)
 ```
-scala -classpath scala-lightning/target/scala-2.10/lightning-scala-assembly-0.1.0.jar
+scala -classpath target/scala-2.10/lightning-scala-assembly-0.1.0.jar
 ```
 
 ##usage
@@ -26,7 +26,7 @@ lgn.createSession(Some("provide an optional session name"))
 ###creating a visualization
 Methods available for most the default visualization types included with Lightning
 ```
-lgn.line(Array(1,1,2,3,9,20))
+lgn.line(Array(1.0,1.0,2.0,3.0,9.0,20.0))
 lgn.scatter(Array(0.1,0.2,0.3), Array(0.9,0.1,0.5))
 ```
 
