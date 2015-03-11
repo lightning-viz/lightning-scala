@@ -4,7 +4,7 @@ import org.viz.lightning.types.utils.Cleaner
 
 object Three {
 
-  val lookup = Map({
+  val lookup = Map(
 
     /** Three-dimensional scatter plot */
     "scatter3" -> new Cleaner[(Array[Double], Array[Double], Array[Double])](data =>
@@ -13,6 +13,6 @@ object Three {
       )
     )
 
-  })
+  )
 
 }
