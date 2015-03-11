@@ -2,7 +2,7 @@ package org.viz.lightning.types.utils
 
 import scala.reflect.runtime.universe._
 
-class DataValidator[T: TypeTag](func: T => Map[String, Any]) {
+class Cleaner[T: TypeTag](func: T => Map[String, Any]) {
 
   def check[K: TypeTag](): Unit = {
     if (!(typeOf[K] =:= typeOf[T])) {
@@ -11,7 +11,7 @@ class DataValidator[T: TypeTag](func: T => Map[String, Any]) {
     }
   }
 
-  def clean[K: TypeTag](data: K): Map[String, Any] = {
+  def apply[K: TypeTag](data: K): Map[String, Any] = {
     check[K]()
     func(data.asInstanceOf[T])
   }

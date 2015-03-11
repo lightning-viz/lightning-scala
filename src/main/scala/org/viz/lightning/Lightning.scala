@@ -10,7 +10,7 @@ import org.json4s.native.JsonMethods._
 import org.json4s.native.Serialization
 import scalaj.http._
 
-class Lightning (private var host: String) extends Dynamic {
+class Lightning (var host: String) extends Dynamic {
 
   var session: Int = -1
   var auth: Option[(String, String)] = None
@@ -28,26 +28,21 @@ class Lightning (private var host: String) extends Dynamic {
       case true => "{}"
     }
 
-    val id = post(url, payload, auth)
+    val id = post(url, payload)
 
     session = id
 
   }
 
-  def plot(vizType: String, data: Map[String, Any]): Visualization = {
+  def plot(name: String, data: Map[String, Any]): Visualization = {
 
     this.checkSession()
 
     val url = host + "/sessions/" + session + "/visualizations/"
 
-    implicit val formats = DefaultFormats
+    val id = postData(url, data, name)
 
-    val blob = Map("data" -> data, "type" -> vizType)
-    val payload = Serialization.write(blob)
-
-    val id = post(url, payload, auth)
-
-    new Visualization(this, id.toInt)
+    new Visualization(this, id.toInt, name)
 
   }
 
@@ -67,9 +62,9 @@ class Lightning (private var host: String) extends Dynamic {
     }
   }
 
-  private def post(url: String, payload: String, auth: Option[(String, String)]): Int = {
+  def post(url: String, payload: String, method: String = "POST"): Int = {
 
-    val request = Http(url).postData(payload).method("POST")
+    val request = Http(url).postData(payload).method(method)
       .header("content-type", "application/json")
       .header("accept", "text/plain")
 
@@ -85,11 +80,22 @@ class Lightning (private var host: String) extends Dynamic {
 
   }
 
+  def postData(url: String, data: Map[String, Any], name: String, method: String = "POST"): Int = {
+
+    implicit val formats = DefaultFormats
+
+    val blob = Map("data" -> data, "type" -> name)
+    val payload = Serialization.write(blob)
+
+    post(url, payload, method)
+
+  }
+
   def types = Plots.lookup ++ Three.lookup
 
   def applyDynamic[T: TypeTag](name: String)(args: T): Visualization = {
 
-    val output = types(name).clean[T](args)
+    val output = types(name)[T](args)
     plot(name, output)
 
   }

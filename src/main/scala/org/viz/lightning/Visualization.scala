@@ -1,10 +1,25 @@
 package org.viz.lightning
 
-class Visualization(lightning: Lightning, id: Int) {
+import org.viz.lightning.types.{Three, Plots}
 
+import scala.language.dynamics
+import scala.reflect.runtime.universe._
 
+import scalaj.http._
 
-}
+class Visualization(lgn: Lightning, id: Int, name: String) {
+
+  def types = Plots.lookup ++ Three.lookup
+
+  def append[T: TypeTag](args: T) {
+    val data = types(name)[T](args)
+    lgn.postData(getDataLink, data, name)
+  }
+
+  def update[T: TypeTag](args: T) {
+    val data = types(name)[T](args)
+    lgn.postData(getDataLink, data, name, "PUT")
+  }
 
   def formatURL(url: String): String = {
     val out = url.last.toString match {
