@@ -44,7 +44,7 @@ For any other plot type, just specify by name, and provide the data as a `Map`
 lgn.plot("line", Map("series" -> List(1,1,2,3,9,20)))
 ```
 
-##TODO
+##todo
 The following pieces of functionality still need to be added
 - Add image posting functionality
 - Finish methods for remaining basic plot types (graph, matrix, adjacency, linestacked, map)
