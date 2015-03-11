@@ -46,7 +46,7 @@ lgn.plot("line", Map("series" -> List(1,1,2,3,9,20)))
 
 ##todo
 The following pieces of functionality still need to be added
-- Add image posting functionality
+- Add ability to post images
 - Finish methods for remaining basic plot types (graph, matrix, adjacency, linestacked, map)
 - Add methods for image visualizations (image, gallery)
 - Add methods for 3D visualizations (scatter3, volume)
