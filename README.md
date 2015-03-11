@@ -24,10 +24,18 @@ lgn.createSession(Some("provide an optional session name"))
 ```
 
 ###creating a visualization
-Methods available for all the default visualization types included with Lightning
+Methods available for most the default visualization types included with Lightning
 ```
 lgn.line(Array(1,1,2,3,9,20))
 lgn.scatter(Array(0.1,0.2,0.3), Array(0.9,0.1,0.5))
+```
+
+###updating a visualization
+Once created, visualizations can be updated or appended with new data
+```
+val viz = lgn.scatter(Array(0.1,0.2,0.3), Array(0.9,0.1,0.5))
+viz.append(Array(0.5), Array(0.5))
+viz.update(Array(0.5, 0.6), Array(0.5, 0.6))
 ```
 
 ###using a custom plot
@@ -35,3 +43,12 @@ For any other plot type, just specify by name, and provide the data as a `Map`
 ```
 lgn.plot("line", Map("series" -> List(1,1,2,3,9,20)))
 ```
+
+##TODO
+The following pieces of functionality still need to be added
+- Add image posting functionality
+- Finish methods for remaining basic plot types (graph, matrix, adjacency, linestacked, map)
+- Add methods for image visualizations (image, gallery)
+- Add methods for 3D visualizations (scatter3, volume)
+- Add methods for streaming visualizations (scatter, line)
+- Add methods for links plots (scatterline)
