@@ -46,6 +46,7 @@ lgn.plot("line", Map("series" -> List(1,1,2,3,9,20)))
 
 ##todo
 The following pieces of functionality still need to be added
+- Refactor viz specification to make it easier to add custom arguments (color, label, etc.)
 - Add ability to post images
 - Finish methods for remaining basic plot types (graph, matrix, adjacency, linestacked, map)
 - Add methods for image visualizations (image, gallery)
