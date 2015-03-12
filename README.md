@@ -15,9 +15,9 @@ scala -classpath target/scala-2.10/lightning-scala-assembly-0.1.0.jar
 
 ###creating a new session
 ```
-import org.viz.lightning.Lightning
+import org.viz.lightning._
 
-val lgn = new Lightning(host="http://my-lightning-instance.herokuapp.com")
+val lgn = Lightning(host="http://my-lightning-instance.herokuapp.com")
 
 lgn.createSession()
 lgn.createSession(Some("provide an optional session name"))
@@ -33,8 +33,8 @@ lgn.scatter((Array(1.0,2.0,3.0), Array(1.0,1.5,5.0)))
 ###setting options
 Visualizations can be customized through an optional map of parameters
 ```
-lgn.line(Array(Array(1.0,1.0,2.0),Array(3.0,9.0,20.0)), Map("label" -> List(1,2)))
-lgn.scatter((Array(1.0,2.0,3.0), Array(1.0,1.5,5.0)), Map("label" -> List(1,2,3)))
+lgn.line(Array(Array(1.0,1.0,2.0),Array(3.0,9.0,20.0)), Map("label" -> Array(1,2)))
+lgn.scatter((Array(1.0,2.0,3.0), Array(1.0,1.5,5.0)), Map("label" -> Array(1,2,3)))
 ```
 
 ###updating a visualization
@@ -53,7 +53,8 @@ lgn.plot("line", Map("series" -> List(1,1,2,3,9,20)))
 This is especially useful when working with custom plot types
 
 ##todo
-The following pieces of functionality still need to be added
+The following components need to be added
+- Add unit tests
 - Add ability to post images
 - Add basic type checking on options
 - Add implicit conversions on inputs to better handle e.g. Ints and Doubles, and nested arrays

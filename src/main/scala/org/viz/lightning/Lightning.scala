@@ -102,3 +102,14 @@ class Lightning (var host: String) extends Dynamic {
   }
 
 }
+
+object Lightning {
+
+  def apply(host: String = ""): Lightning = {
+    host match {
+      case "" => new Lightning()
+      case _ => new Lightning(host)
+    }
+  }
+
+}
