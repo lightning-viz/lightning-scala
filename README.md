@@ -15,9 +15,9 @@ scala -classpath target/scala-2.10/lightning-scala-assembly-0.1.0.jar
 
 ###creating a new session
 ```
-import org.viz.lightning.Lightning
+import org.viz.lightning._
 
-val lgn = new Lightning(host="http://my-lightning-instance.herokuapp.com")
+val lgn = Lightning(host="http://my-lightning-instance.herokuapp.com")
 
 lgn.createSession()
 lgn.createSession(Some("provide an optional session name"))
@@ -26,16 +26,8 @@ lgn.createSession(Some("provide an optional session name"))
 ###creating a visualization
 Methods available for most the default visualization types included with Lightning
 ```
-lgn.line(Array(1.0,1.0,2.0,3.0,9.0,20.0))
-lgn.scatter(Array(0.1,0.2,0.3), Array(0.9,0.1,0.5))
-```
-
-###updating a visualization
-Once created, visualizations can be updated or appended with new data
-```
-val viz = lgn.scatter(Array(0.1,0.2,0.3), Array(0.9,0.1,0.5))
-viz.append(Array(0.5), Array(0.5))
-viz.update(Array(0.5, 0.6), Array(0.5, 0.6))
+line(Array(Array(1.0,3.0,5.0,2.0),Array(2.0,1.0,9.0,0.0)), label=Some(Array(0,1)))
+scatter(Array(1.0,2.0,3.0), Array(9.0,1.0,5.0), label=Some(Array(0,1,2)))
 ```
 
 ###using a custom plot
@@ -43,11 +35,12 @@ For any other plot type, just specify by name, and provide the data as a `Map`
 ```
 lgn.plot("line", Map("series" -> List(1,1,2,3,9,20)))
 ```
+This will not perform any type checking on the inputs, and simpy serialize the contents of the map to JSON and send to the server.
 
 ##todo
 The following pieces of functionality still need to be added
-- Refactor viz specification to make it easier to add custom arguments (color, label, etc.)
 - Add ability to post images
+- Incorporate update and append methods on visualizations
 - Finish methods for remaining basic plot types (graph, matrix, adjacency, linestacked, map)
 - Add methods for image visualizations (image, gallery)
 - Add methods for 3D visualizations (scatter3, volume)

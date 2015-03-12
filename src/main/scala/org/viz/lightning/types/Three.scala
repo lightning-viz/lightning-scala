@@ -1,18 +1,22 @@
 package org.viz.lightning.types
 
-import org.viz.lightning.types.utils.Cleaner
+import org.viz.lightning.{Visualization, Lightning}
 
 object Three {
 
-  val lookup = Map(
+  object scatter3 {
 
-    /** Three-dimensional scatter plot */
-    "scatter3" -> new Cleaner[(Array[Double], Array[Double], Array[Double])](data =>
-      Map(
-        "points" -> (data._1, data._2, data._3).zipped.map((x, y, z) => List(x, y, z)).toList
-      )
-    )
+    def apply(x: Array[Double], y: Array[Double], z: Array[Double], label: Option[Array[Int]] = None)
+             (implicit lgn: Lightning): Visualization = {
 
-  )
+      var out = Map[String, Any]()
+      out += "points" -> (x, y, z).zipped.map((x, y, z) => List(x, y, z)).toList
+      if (label.nonEmpty) {
+        out += "label" -> label.get.toList
+      }
+      lgn.plot("line", out)
+    }
+
+  }
 
 }
