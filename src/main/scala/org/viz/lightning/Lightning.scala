@@ -1,9 +1,6 @@
 package org.viz.lightning
 
-import org.viz.lightning.types.{Three, Plots}
-
 import scala.language.dynamics
-import scala.reflect.runtime.universe._
 
 import org.json4s._
 import org.json4s.native.JsonMethods._
@@ -75,6 +72,7 @@ class Lightning (var host: String) extends Dynamic {
     implicit val formats = DefaultFormats
 
     val response = request.asString
+
     val json = parse(response.body)
     (json \ "id").extract[Int]
 
@@ -91,13 +89,17 @@ class Lightning (var host: String) extends Dynamic {
 
   }
 
-  def types = Plots.lookup ++ Three.lookup
+}
 
-  def applyDynamic[T: TypeTag](name: String)(args: T): Visualization = {
+object Lightning {
 
-    val output = types(name)[T](args)
-    plot(name, output)
+  implicit val lgn = new Lightning()
 
+  def apply(host: String = ""): Lightning = {
+    if (host != "") {
+      lgn.useHost(host)
+    }
+    lgn
   }
 
 }
