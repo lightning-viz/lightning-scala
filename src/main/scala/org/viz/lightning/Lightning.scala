@@ -93,10 +93,11 @@ class Lightning (var host: String) extends Dynamic {
 
   def types = Plots.lookup ++ Three.lookup
 
-  def applyDynamic[T: TypeTag](name: String)(args: T): Visualization = {
+  def applyDynamic[T: TypeTag](name: String)
+    (data: T, opts: Map[String, Any] = Map[String, Any]()): Visualization = {
 
-    val output = types(name)[T](args)
-    plot(name, output)
+    val output = types(name)[T](data)
+    plot(name, output ++ opts)
 
   }
 

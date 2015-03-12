@@ -11,14 +11,14 @@ class Visualization(lgn: Lightning, id: Int, name: String) {
 
   def types = Plots.lookup ++ Three.lookup
 
-  def append[T: TypeTag](args: T) {
-    val data = types(name)[T](args)
-    lgn.postData(getDataLink, data, name)
+  def append[T: TypeTag](data: T, opts: Map[String, Any] = Map[String, Any]()) {
+    val output = types(name)[T](data)
+    lgn.postData(getDataLink, output ++ opts, name)
   }
 
-  def update[T: TypeTag](args: T) {
-    val data = types(name)[T](args)
-    lgn.postData(getDataLink, data, name, "PUT")
+  def update[T: TypeTag](data: T, opts: Map[String, Any] = Map[String, Any]()) {
+    val output = types(name)[T](data)
+    lgn.postData(getDataLink, output ++ opts, name, "PUT")
   }
 
   def formatURL(url: String): String = {

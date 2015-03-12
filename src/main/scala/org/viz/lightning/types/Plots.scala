@@ -7,7 +7,7 @@ object Plots {
   val lookup = Map(
 
     /** Line plot */
-    "line" -> new Cleaner[Array[Double]](data =>
+    "line" -> new Cleaner[Array[Array[Double]]](data =>
       Map(
         "series" -> data.toList
       )

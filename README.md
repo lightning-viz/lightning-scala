@@ -24,18 +24,25 @@ lgn.createSession(Some("provide an optional session name"))
 ```
 
 ###creating a visualization
-Methods available for most the default visualization types included with Lightning
+Methods are available for the default visualization types included with Lightning
 ```
-lgn.line(Array(1.0,1.0,2.0,3.0,9.0,20.0))
-lgn.scatter(Array(0.1,0.2,0.3), Array(0.9,0.1,0.5))
+lgn.line(Array(Array(1.0,1.0,2.0,3.0,9.0,20.0)))
+lgn.scatter((Array(1.0,2.0,3.0), Array(1.0,1.5,5.0)))
+```
+
+###setting options
+Visualizations can be customized through an optional map of parameters
+```
+lgn.line(Array(Array(1.0,1.0,2.0),Array(3.0,9.0,20.0)), Map("label" -> List(1,2)))
+lgn.scatter((Array(1.0,2.0,3.0), Array(1.0,1.5,5.0)), Map("label" -> List(1,2,3)))
 ```
 
 ###updating a visualization
 Once created, visualizations can be updated or appended with new data
 ```
-val viz = lgn.scatter(Array(0.1,0.2,0.3), Array(0.9,0.1,0.5))
-viz.append(Array(0.5), Array(0.5))
-viz.update(Array(0.5, 0.6), Array(0.5, 0.6))
+val viz = lgn.scatter((Array(0.1,0.2,0.3), Array(0.9,0.1,0.5)))
+viz.append((Array(0.5), Array(0.5)))
+viz.update((Array(0.5, 0.6), Array(0.5, 0.6)))
 ```
 
 ###using a custom plot
@@ -43,11 +50,13 @@ For any other plot type, just specify by name, and provide the data as a `Map`
 ```
 lgn.plot("line", Map("series" -> List(1,1,2,3,9,20)))
 ```
+This is especially useful when working with custom plot types
 
 ##todo
 The following pieces of functionality still need to be added
-- Refactor viz specification to make it easier to add custom arguments (color, label, etc.)
 - Add ability to post images
+- Add basic type checking on options
+- Add implicit conversions on inputs to better handle e.g. Ints and Doubles, and nested arrays
 - Finish methods for remaining basic plot types (graph, matrix, adjacency, linestacked, map)
 - Add methods for image visualizations (image, gallery)
 - Add methods for 3D visualizations (scatter3, volume)
