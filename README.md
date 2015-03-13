@@ -20,7 +20,7 @@ import org.viz.lightning._
 val lgn = Lightning(host="http://my-lightning-instance.herokuapp.com")
 
 lgn.createSession()
-lgn.createSession(Some("provide an optional session name"))
+lgn.createSession("provide an optional session name")
 ```
 
 ###creating a visualization
