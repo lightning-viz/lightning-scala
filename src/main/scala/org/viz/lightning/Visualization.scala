@@ -3,23 +3,10 @@ package org.viz.lightning
 import org.viz.lightning.types.{Three, Plots}
 
 import scala.language.dynamics
-import scala.reflect.runtime.universe._
 
 import scalaj.http._
 
 class Visualization(lgn: Lightning, id: Int, name: String) {
-
-  def types = Plots.lookup ++ Three.lookup
-
-  def append[T: TypeTag](data: T, opts: Map[String, Any] = Map[String, Any]()) {
-    val output = types(name)[T](data)
-    lgn.postData(getDataLink, output ++ opts, name)
-  }
-
-  def update[T: TypeTag](data: T, opts: Map[String, Any] = Map[String, Any]()) {
-    val output = types(name)[T](data)
-    lgn.postData(getDataLink, output ++ opts, name, "PUT")
-  }
 
   def formatURL(url: String): String = {
     val out = url.last.toString match {

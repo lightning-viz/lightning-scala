@@ -1,18 +1,13 @@
 package org.viz.lightning.types
 
-import org.viz.lightning.types.utils.Cleaner
+import org.viz.lightning.Visualization
 
-object Three {
+trait Three extends Base {
 
-  val lookup = Map(
-
-    /** Three-dimensional scatter plot */
-    "scatter3" -> new Cleaner[(Array[Double], Array[Double], Array[Double])](data =>
-      Map(
-        "points" -> (data._1, data._2, data._3).zipped.map((x, y, z) => List(x, y, z)).toList
-      )
-    )
-
-  )
+  def scatter3(x: Array[Double], y: Array[Double], z: Array[Double]): Visualization = {
+    val out = (x, y, z).zipped.map((x, y, z) => List(x, y, z)).toList
+    val payload = Map("points" -> out)
+    plot("scatter3", payload)
+  }
 
 }

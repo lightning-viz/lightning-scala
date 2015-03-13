@@ -3,14 +3,13 @@ package org.viz.lightning
 import org.viz.lightning.types.{Three, Plots}
 
 import scala.language.dynamics
-import scala.reflect.runtime.universe._
 
 import org.json4s._
 import org.json4s.native.JsonMethods._
 import org.json4s.native.Serialization
 import scalaj.http._
 
-class Lightning (var host: String) extends Dynamic {
+class Lightning (var host: String) extends Plots with Three {
 
   var session: Int = -1
   var auth: Option[(String, String)] = None
@@ -88,16 +87,6 @@ class Lightning (var host: String) extends Dynamic {
     val payload = Serialization.write(blob)
 
     post(url, payload, method)
-
-  }
-
-  def types = Plots.lookup ++ Three.lookup
-
-  def applyDynamic[T: TypeTag](name: String)
-    (data: T, opts: Map[String, Any] = Map[String, Any]()): Visualization = {
-
-    val output = types(name)[T](data)
-    plot(name, output ++ opts)
 
   }
 

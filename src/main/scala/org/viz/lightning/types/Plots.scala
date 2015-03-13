@@ -1,25 +1,25 @@
 package org.viz.lightning.types
 
-import org.viz.lightning.types.utils.Cleaner
+import org.viz.lightning.Visualization
 
-object Plots {
+trait Plots extends Base {
 
-  val lookup = Map(
+  def line(series: Array[Array[Double]], label: Array[Int] = Array[Int]()): Visualization = {
+    var payload = Map[String, Any]()
+    payload += "series" -> series.toList
+    if (label.length > 0) {
+      payload += "label" -> label.toList
+    }
+    plot("line", payload)
+  }
 
-    /** Line plot */
-    "line" -> new Cleaner[Array[Array[Double]]](data =>
-      Map(
-        "series" -> data.toList
-      )
-    ),
-
-    /** Scatter plot */
-     "scatter" -> new Cleaner[(Array[Double], Array[Double])](data =>
-      Map(
-        "points" -> (data._1, data._2).zipped.map((x, y) => List(x, y)).toList
-      )
-    )
-
-  )
+  def scatter(x: Array[Double], y: Array[Double], label: Array[Int] = Array[Int]()): Visualization = {
+    var payload = Map[String, Any]()
+    payload += "points" -> (x, y).zipped.map((x, y) => List(x, y)).toList
+    if (label.length > 0) {
+      payload += "label" -> label.toList
+    }
+    plot("scatter", payload)
+  }
 
 }
