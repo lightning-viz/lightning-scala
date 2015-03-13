@@ -17,15 +17,15 @@ class Lightning (var host: String) extends Dynamic {
 
   def this() = this("http://localhost:3000")
 
-  def createSession(sessionName: Option[String] = None) {
+  def createSession(sessionName: String = "") {
 
     val url = host + "/sessions/"
 
     implicit val formats = DefaultFormats
 
-    val payload = sessionName.isEmpty match {
-      case false => Serialization.write( Map("name" -> sessionName.get) )
-      case true => "{}"
+    val payload = sessionName match {
+      case "" => "{}"
+      case _ => Serialization.write( Map("name" -> sessionName) )
     }
 
     val id = post(url, payload)
