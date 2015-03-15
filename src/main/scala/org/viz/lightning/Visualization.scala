@@ -1,7 +1,5 @@
 package org.viz.lightning
 
-import org.viz.lightning.types.{Three, Plots}
-
 import scala.language.dynamics
 
 import scalaj.http._
