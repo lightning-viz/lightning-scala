@@ -8,7 +8,7 @@ trait Three extends Base {
       y: Array[Double],
       z: Array[Double],
       label: Array[Int] = Array[Int]()
-      size: Array[Int] = Array[Int]()): Visualization = {
+      size: Array[Double] = Array[Double]()): Visualization = {
     val out = (x, y, z).zipped.map((x, y, z) => List(x, y, z)).toList
     var payload = Map[String, Any]()
     payload += "points" -> out
