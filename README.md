@@ -44,9 +44,24 @@ lgn.plot("line", Map("series" -> List(1,1,2,3,9,20)))
 ```
 This is especially useful when working with custom plot types
 
+##tests
+Run the unit tests using `sbt` by calling
+
+```
+sbt test
+```
+
+You can specify a name to run a subset of the tests
+
+```
+sbt "test-only *LightningPlotsSuite*"
+```
+
+The tests require that a local lightning server is running on `http://localhost:3000`
+
 ##todo
 The following components need to be added
-- Add unit tests
+- Expand unit tests
 - Add updating and appending
 - Add ability to post images
 - Add basic type checking on options
