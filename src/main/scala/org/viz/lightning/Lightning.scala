@@ -61,20 +61,24 @@ class Lightning (var host: String) extends Plots with Three {
 
   def post(url: String, payload: String, method: String = "POST"): Int = {
 
-    val request = Http(url).postData(payload).method(method)
+    var request = Http(url).postData(payload).method(method)
       .header("content-type", "application/json")
       .header("accept", "text/plain")
 
     if (auth.nonEmpty) {
-      request.auth(auth.get._1, auth.get._2)
+      request = request.auth(auth.get._1, auth.get._2)
     }
 
     implicit val formats = DefaultFormats
 
     val response = request.asString
-    val json = parse(response.body)
-    (json \ "id").extract[Int]
-
+    response.body.toLowerCase match {
+      case "unauthorized" => throw new Exception("Unauthorized. Check username and/or password.")
+      case _ => {
+        val json = parse(response.body)
+        (json \ "id").extract[Int]
+      }
+    }
   }
 
   def postData(url: String, data: Map[String, Any], name: String, method: String = "POST"): Int = {

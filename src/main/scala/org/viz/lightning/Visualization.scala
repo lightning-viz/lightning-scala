@@ -22,6 +22,14 @@ class Visualization(lgn: Lightning, id: Int, name: String) {
     formatURL(this.getPermalinkURL + "/embed")
   }
 
+  def getIframeLink: String = {
+    formatURL(this.getPermalinkURL + "/iframe")
+  }
+
+  def getPymLink: String = {
+    formatURL(this.getPermalinkURL + "/pym")
+  }
+
   def getDataLink: String = {
     formatURL(lgn.host + "/sessions/" + lgn.session + "/visualizations/" + id + "/data/")
   }
