@@ -4,7 +4,7 @@ import scala.language.dynamics
 
 import scalaj.http._
 
-class Visualization(lgn: Lightning, id: Int, name: String) {
+class Visualization(val lgn: Lightning, val id: Int, val name: String) {
 
   def formatURL(url: String): String = {
     val out = url.last.toString match {
@@ -36,9 +36,9 @@ class Visualization(lgn: Lightning, id: Int, name: String) {
 
   def getHTML: String = {
     val url = getEmbedLink
-    val request = Http(url).method("GET")
+    var request = Http(url).method("GET")
     if (lgn.auth.nonEmpty) {
-      request.auth(lgn.auth.get._1, lgn.auth.get._2)
+      request = request.auth(lgn.auth.get._1, lgn.auth.get._2)
     }
     request.asString.body
   }
