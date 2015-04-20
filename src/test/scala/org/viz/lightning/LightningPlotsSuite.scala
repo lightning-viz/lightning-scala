@@ -15,6 +15,10 @@ class LightningPlotsSuite extends FunSuite with BeforeAndAfter {
     lgn.line(Array(Array(1.0, 2.0), Array(2.0, 1.0)))
   }
 
+  test("matrix") {
+    lgn.matrix(Array(Array(1.0, 2.0), Array(2.0, 1.0)))
+  }
+
   test("scatter") {
     lgn.scatter(Array(1.0, 2.0), Array(2.0, 1.0))
   }

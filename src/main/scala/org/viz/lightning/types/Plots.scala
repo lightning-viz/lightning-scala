@@ -13,13 +13,15 @@ trait Plots extends Base {
     plot("line", payload)
   }
 
-  def scatter(x: Array[Double], y: Array[Double], label: Array[Int] = Array[Int]()): Visualization = {
-    var payload = Map[String, Any]()
-    payload += "points" -> (x, y).zipped.map((x, y) => List(x, y)).toList
-    if (label.length > 0) {
-      payload += "label" -> label.toList
-    }
-    plot("scatter", payload)
+  def matrix(mat: Array[Array[Double]],
+             colormap: String = ""): Visualization = {
+
+    val data = Map("matrix" -> mat.toList)
+
+    val styles = new Styles()
+      .append(colormap, "colormap")
+
+    plot("matrix", data ++ styles.toMap)
   }
 
 }
