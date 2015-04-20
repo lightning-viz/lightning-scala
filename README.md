@@ -64,9 +64,7 @@ The following components need to be added
 - Expand unit tests
 - Add updating and appending
 - Add ability to post images
-- Add basic type checking on options
-- Add implicit conversions on inputs to better handle e.g. Ints and Doubles, and nested arrays
-- Finish methods for remaining basic plot types (graph, matrix, adjacency, linestacked, map)
+- Finish methods for remaining basic plot types (graph, adjacency, linestacked, map)
 - Add methods for image visualizations (image, gallery)
 - Add methods for 3D visualizations (scatter3, volume)
 - Add methods for streaming visualizations (scatter, line)
