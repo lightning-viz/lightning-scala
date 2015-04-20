@@ -1,14 +1,14 @@
 package org.viz.lightning
 
-import org.scalatest.{BeforeAndAfter, FunSuite}
+import org.scalatest.{BeforeAndAfterAll, FunSuite}
 
-class LightningPlotsSuite extends FunSuite with BeforeAndAfter {
+class LightningPlotsSuite extends FunSuite with BeforeAndAfterAll {
 
   var lgn: Lightning = _
 
-  before {
+  override def beforeAll() {
     lgn = Lightning("http://localhost:3000")
-    lgn.createSession("test")
+    lgn.createSession("test-plots")
   }
 
   test("line") {
