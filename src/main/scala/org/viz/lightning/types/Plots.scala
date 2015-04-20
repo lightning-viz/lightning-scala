@@ -4,13 +4,44 @@ import org.viz.lightning.Visualization
 
 trait Plots extends Base {
 
-  def line(series: Array[Array[Double]], label: Array[Int] = Array[Int]()): Visualization = {
-    var payload = Map[String, Any]()
-    payload += "series" -> series.toList
-    if (label.length > 0) {
-      payload += "label" -> label.toList
-    }
-    plot("line", payload)
+  def line(series: Array[Array[Double]],
+           label: Array[Int] = Array[Int](),
+           size: Array[Double] = Array[Double](),
+           alpha: Array[Double] = Array[Double](),
+           xaxis: String = "",
+           yaxis: String = ""): Visualization = {
+
+    val data = Map("series" -> series.toList)
+
+    val styles = new Styles()
+      .append(label, "label")
+      .append(size, "size")
+      .append(alpha, "alpha")
+      .append(xaxis, "xaxis")
+      .append(yaxis, "yaxis")
+
+    plot("line", data ++ styles.toMap)
+
+  }
+
+  def scatter(x: Array[Double],
+              y: Array[Double],
+              label: Array[Int] = Array[Int](),
+              size: Array[Double] = Array[Double](),
+              alpha: Array[Double] = Array[Double](),
+              xaxis: String = "",
+              yaxis: String = ""): Visualization = {
+
+    val data = Map("points" -> (x, y).zipped.map((x, y) => List(x, y)).toList)
+
+    val styles = new Styles()
+      .append(label, "label")
+      .append(size, "size")
+      .append(alpha, "alpha")
+      .append(xaxis, "xaxis")
+      .append(yaxis, "yaxis")
+
+    plot("scatter", data ++ styles.toMap)
   }
 
   def matrix(mat: Array[Array[Double]],
