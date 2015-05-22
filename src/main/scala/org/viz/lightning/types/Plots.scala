@@ -46,12 +46,12 @@ trait Plots extends Base {
   /**
    * Force-directed network from a connectivity matrix.
    */
-  def force(mat: Array[Array[Double]],
+  def force(matrix: Array[Array[Double]],
             label: Array[Int] = Array[Int](),
             size: Array[Double] = Array[Double]()): Visualization = {
 
-    val links = Utils.getLinks(mat)
-    val nodes = Range(0, mat.length)
+    val links = Utils.getLinks(matrix)
+    val nodes = Range(0, matrix.length)
 
     val data = Map("links" -> links.toList, "nodes" -> nodes.toList)
 
@@ -73,7 +73,8 @@ trait Plots extends Base {
               xaxis: String = "",
               yaxis: String = ""): Visualization = {
 
-    val data = Map("points" -> (x, y).zipped.map((x, y) => List(x, y)).toList)
+    val points = Utils.getPoints(x, y)
+    val data = Map("points" -> points.toList)
 
     val settings = new Settings()
       .append(List(Label(label), Size(size), Alpha(alpha)))
@@ -85,10 +86,10 @@ trait Plots extends Base {
   /**
    * Dense matrix or a table as a heat map.
    */
-  def matrix(mat: Array[Array[Double]],
+  def matrix(matrix: Array[Array[Double]],
              colormap: String = ""): Visualization = {
 
-    val data = Map("matrix" -> mat.toList)
+    val data = Map("matrix" -> matrix.toList)
 
     val settings = new Settings()
       .append(Colormap(colormap))
@@ -99,11 +100,11 @@ trait Plots extends Base {
   /**
    * Sparse adjacency matrix with labels.
    */
-  def adjacency(mat: Array[Array[Double]],
+  def adjacency(matrix: Array[Array[Double]],
                 label: Array[Int] = Array[Int]()): Visualization = {
 
-    val links = Utils.getLinks(mat)
-    val nodes = Range(0, mat.length)
+    val links = Utils.getLinks(matrix)
+    val nodes = Range(0, matrix.length)
 
     val data = Map("links" -> links.toList, "nodes" -> nodes.toList)
 

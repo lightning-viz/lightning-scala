@@ -10,4 +10,8 @@ object Utils {
 
   }
 
+  def getPoints(x: Array[Double], y: Array[Double]): Array[Array[Double]] = {
+    (x, y).zipped.map((x, y) => Array(x, y))
+  }
+
 }
