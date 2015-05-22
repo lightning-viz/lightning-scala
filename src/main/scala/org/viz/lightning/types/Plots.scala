@@ -24,6 +24,23 @@ trait Plots extends Base {
 
   }
 
+  def lineStacked(series: Array[Array[Double]],
+                  label: Array[Int] = Array[Int](),
+                  size: Array[Double] = Array[Double](),
+                  alpha: Array[Double] = Array[Double](),
+                  xaxis: String = "",
+                  yaxis: String = ""): Visualization = {
+
+    val data = Map("series" -> series.toList)
+
+    val styles = new Styles()
+      .append(label, "label")
+      .append(size, "size")
+
+    plot("line-stacked", data ++ styles.toMap)
+
+  }
+
   def force(mat: Array[Array[Double]],
             label: Array[Int] = Array[Int](),
             size: Array[Double] = Array[Double]()): Visualization = {
