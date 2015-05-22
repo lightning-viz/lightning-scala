@@ -133,5 +133,45 @@ trait Plots extends Base {
     plot("map", data ++ settings.toMap)
 
   }
-  
+
+  /**
+   * Node-link graph from spatial points and a connectivity matrix.
+   */
+  def graph(x: Array[Double],
+            y: Array[Double],
+            matrix: Array[Array[Double]],
+            label: Array[Int] = Array[Int](),
+            size: Array[Double] = Array[Double]()): Visualization = {
+
+    val links = Utils.getLinks(matrix)
+    val nodes = Utils.getPoints(x, y)
+    val data = Map("links" -> links, "nodes" -> nodes.toList)
+
+    val settings = new Settings()
+      .append(List(Label(label), Size(size)))
+
+    plot("graph", data ++ settings.toMap)
+
+  }
+
+  /**
+   * Node-link graph with bundled edges from spatial points and a connectivity matrix.
+   */
+  def graphBundled(x: Array[Double],
+                   y: Array[Double],
+                   matrix: Array[Array[Double]],
+                   label: Array[Int] = Array[Int](),
+                   size: Array[Double] = Array[Double]()): Visualization = {
+
+    val links = Utils.getLinks(matrix)
+    val nodes = Utils.getPoints(x, y)
+    val data = Map("links" -> links, "nodes" -> nodes.toList)
+
+    val settings = new Settings()
+      .append(List(Label(label), Size(size)))
+
+    plot("graph-bundled", data ++ settings.toMap)
+
+  }
+
 }
