@@ -4,6 +4,9 @@ import org.viz.lightning.Visualization
 
 trait Plots extends Base {
 
+  /**
+   * One or more one-dimensional series data as lines.
+   */
   def line(series: Array[Array[Double]],
            label: Array[Int] = Array[Int](),
            size: Array[Double] = Array[Double](),
@@ -24,6 +27,9 @@ trait Plots extends Base {
 
   }
 
+  /**
+   * Browsable array of line plots.
+   */
   def lineStacked(series: Array[Array[Double]],
                   label: Array[Int] = Array[Int](),
                   size: Array[Double] = Array[Double](),
@@ -41,6 +47,9 @@ trait Plots extends Base {
 
   }
 
+  /**
+   * Force-directed network from a connectivity matrix.
+   */
   def force(mat: Array[Array[Double]],
             label: Array[Int] = Array[Int](),
             size: Array[Double] = Array[Double]()): Visualization = {
@@ -58,6 +67,9 @@ trait Plots extends Base {
 
   }
 
+  /**
+   *  Two-dimensional data as points.
+   */
   def scatter(x: Array[Double],
               y: Array[Double],
               label: Array[Int] = Array[Int](),
@@ -78,6 +90,9 @@ trait Plots extends Base {
     plot("scatter", data ++ styles.toMap)
   }
 
+  /**
+   * Dense matrix or a table as a heat map.
+   */
   def matrix(mat: Array[Array[Double]],
              colormap: String = ""): Visualization = {
 
