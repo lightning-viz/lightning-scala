@@ -8,7 +8,7 @@ homepage := Some(url("http://lightning-viz.org"))
 
 description := "Scala client for interactive data visualization with Lightning."
 
-organization := "org.lightning-viz"
+organization := "org.viz.lightning"
 
 organizationName := "lightning-viz"
 
