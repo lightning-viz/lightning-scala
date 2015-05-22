@@ -11,6 +11,9 @@ package object lightning {
   implicit def IntToDouble(value: Array[Int]): Array[Double] =
     value.map(_.toDouble)
 
+  implicit def NestedIntToDouble(value: Array[Array[Int]]): Array[Array[Double]] =
+    value.map(_.map(_.toDouble))
+
   implicit def FlatToNestedInt(value : Array[Int]): Array[Array[Double]] =
     Array(value.map(_.toDouble))
 

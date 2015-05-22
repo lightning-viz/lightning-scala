@@ -2,6 +2,8 @@ package org.viz.lightning
 
 import org.scalatest.{BeforeAndAfterAll, FunSuite}
 
+import org.viz.lightning.types.Make
+
 class LightningImplicitsSuite extends FunSuite with BeforeAndAfterAll {
 
   var lgn: Lightning = _
@@ -12,15 +14,15 @@ class LightningImplicitsSuite extends FunSuite with BeforeAndAfterAll {
   }
 
   test("line (flat)") {
-    lgn.line(Array(1.0, 2.0))
+    lgn.line(series = Make.line(t = 50))
   }
 
   test("line (flat int)") {
-    lgn.line(Array(1, 2))
+    lgn.line(series = Make.lineInt(t = 50))
   }
 
   test("line (nested int)") {
-    lgn.line(Array(Array(1, 2), Array(3, 4)))
+    lgn.line(series = Make.seriesInt(n = 5, t = 50))
   }
 
 
