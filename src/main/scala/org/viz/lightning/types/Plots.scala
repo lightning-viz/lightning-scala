@@ -16,14 +16,11 @@ trait Plots extends Base {
 
     val data = Map("series" -> series.toList)
 
-    val styles = new Styles()
-      .append(label, "label")
-      .append(size, "size")
-      .append(alpha, "alpha")
-      .append(xaxis, "xaxis")
-      .append(yaxis, "yaxis")
+    val settings = new Settings()
+      .append(List(Label(label), Size(size), Alpha(alpha)))
+      .append(List(Axis(xaxis, "xaxis"), Axis(yaxis, "yaxis")))
 
-    plot("line", data ++ styles.toMap)
+    plot("line", data ++ settings.toMap)
 
   }
 
@@ -39,11 +36,10 @@ trait Plots extends Base {
 
     val data = Map("series" -> series.toList)
 
-    val styles = new Styles()
-      .append(label, "label")
-      .append(size, "size")
+    val settings = new Settings()
+      .append(List(Label(label), Size(size)))
 
-    plot("line-stacked", data ++ styles.toMap)
+    plot("line-stacked", data ++ settings.toMap)
 
   }
 
@@ -59,11 +55,10 @@ trait Plots extends Base {
 
     val data = Map("links" -> links.toList, "nodes" -> nodes.toList)
 
-    val styles = new Styles()
-      .append(label, "label")
-      .append(size, "size")
+    val settings = new Settings()
+      .append(List(Label(label), Size(size)))
 
-    plot("force", data ++ styles.toMap)
+    plot("force", data ++ settings.toMap)
 
   }
 
@@ -80,14 +75,11 @@ trait Plots extends Base {
 
     val data = Map("points" -> (x, y).zipped.map((x, y) => List(x, y)).toList)
 
-    val styles = new Styles()
-      .append(label, "label")
-      .append(size, "size")
-      .append(alpha, "alpha")
-      .append(xaxis, "xaxis")
-      .append(yaxis, "yaxis")
+    val settings = new Settings()
+      .append(List(Label(label), Size(size), Alpha(alpha)))
+      .append(List(Axis(xaxis, "xaxis"), Axis(yaxis, "yaxis")))
 
-    plot("scatter", data ++ styles.toMap)
+    plot("scatter", data ++ settings.toMap)
   }
 
   /**
@@ -98,10 +90,10 @@ trait Plots extends Base {
 
     val data = Map("matrix" -> mat.toList)
 
-    val styles = new Styles()
-      .append(colormap, "colormap")
+    val settings = new Settings()
+      .append(Colormap(colormap))
 
-    plot("matrix", data ++ styles.toMap)
+    plot("matrix", data ++ settings.toMap)
   }
 
 }
