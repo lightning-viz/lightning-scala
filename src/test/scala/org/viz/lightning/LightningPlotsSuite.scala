@@ -1,6 +1,7 @@
 package org.viz.lightning
 
 import org.scalatest.{BeforeAndAfterAll, FunSuite}
+import org.viz.lightning.types.Make
 
 class LightningPlotsSuite extends FunSuite with BeforeAndAfterAll {
 
@@ -12,23 +13,45 @@ class LightningPlotsSuite extends FunSuite with BeforeAndAfterAll {
   }
 
   test("line") {
-    lgn.line(Array(Array(1.0, 2.0), Array(2.0, 1.0)))
+    lgn.line(series = Make.series(n = 5, t = 20),
+             label = Make.labels(n = 5),
+             size = Make.sizes(n = 5, scale = 7, min = 3))
   }
 
   test("line (single)") {
-    lgn.line(Array(Array(1.0, 2.0)))
+    lgn.line(series = Make.line(t = 20))
   }
 
   test("force") {
-    lgn.force(Array(Array(0, 0, 1), Array(0, 1, 1), Array(1, 0, 0)), label = Array(0, 1, 2))
+    lgn.force(mat = Make.sparseMatrix(n = 30, threshold = 0.95),
+              label = Make.labels(n = 20))
   }
 
   test("matrix") {
-    lgn.matrix(Array(Array(1.0, 2.0), Array(2.0, 1.0)))
+    lgn.matrix(mat = Make.matrix(n = 10))
+  }
+
+  test("adjacency") {
+    lgn.adjacency(mat = Make.sparseMatrix(n = 10),
+                  label = Make.labels(n = 10))
+  }
+
+  test("map (states)") {
+    lgn.map(regions = Array("NY", "CA", "VA"),
+        values = Make.values(n = 3))
+  }
+
+  test("map (countries)") {
+    lgn.map(regions = Array("USA", "ENG", "IND"),
+            values = Make.values(n = 3))
   }
 
   test("scatter") {
-    lgn.scatter(Array(1.0, 2.0), Array(2.0, 1.0))
+    lgn.scatter(x = Make.values(n = 50, scale = 5),
+                y = Make.values(n = 50, scale = 5),
+                label = Make.labels(n = 50),
+                size = Make.sizes(n = 50),
+                alpha = Make.alphas(n = 50))
   }
 
 
