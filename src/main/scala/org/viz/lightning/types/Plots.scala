@@ -24,6 +24,23 @@ trait Plots extends Base {
 
   }
 
+  def force(mat: Array[Array[Double]],
+            label: Array[Int] = Array[Int](),
+            size: Array[Double] = Array[Double]()): Visualization = {
+
+    val links = Utils.getLinks(mat)
+    val nodes = Range(0, mat.length)
+
+    val data = Map("links" -> links.toList, "nodes" -> nodes.toList)
+
+    val styles = new Styles()
+      .append(label, "label")
+      .append(size, "size")
+
+    plot("force", data ++ styles.toMap)
+
+  }
+
   def scatter(x: Array[Double],
               y: Array[Double],
               label: Array[Int] = Array[Int](),

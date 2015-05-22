@@ -19,6 +19,10 @@ class LightningPlotsSuite extends FunSuite with BeforeAndAfterAll {
     lgn.line(Array(Array(1.0, 2.0)))
   }
 
+  test("force") {
+    lgn.force(Array(Array(0, 0, 1), Array(0, 1, 1), Array(1, 0, 0)), label = Array(0, 1, 2))
+  }
+
   test("matrix") {
     lgn.matrix(Array(Array(1.0, 2.0), Array(2.0, 1.0)))
   }
