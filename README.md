@@ -61,11 +61,7 @@ The tests require that a local lightning server is running on `http://localhost:
 
 ##todo
 The following components need to be added
-- Expand unit tests
 - Add updating and appending
 - Add ability to post images
-- Finish methods for remaining basic plot types (graph, adjacency, linestacked, map)
-- Add methods for image visualizations (image, gallery)
-- Add methods for 3D visualizations (scatter3, volume)
-- Add methods for streaming visualizations (scatter, line)
-- Add methods for links plots (scatterline)
+- Add image-related visualizations (image, gallery, volume)
+- Add streaming visualizations (scatter, line)
