@@ -1,13 +1,13 @@
 package org.viz.lightning
 
-import org.viz.lightning.types.{Three, Plots}
+import org.viz.lightning.types.{Three, Plots, Linked}
 
 import org.json4s._
 import org.json4s.native.JsonMethods._
 import org.json4s.native.Serialization
 import scalaj.http._
 
-class Lightning (var host: String) extends Plots with Three {
+class Lightning (var host: String) extends Plots with Three with Linked {
 
   var session: Int = -1
   var auth: Option[(String, String)] = None
