@@ -96,4 +96,42 @@ trait Plots extends Base {
     plot("matrix", data ++ settings.toMap)
   }
 
+  /**
+   * Sparse adjacency matrix with labels.
+   */
+  def adjacency(mat: Array[Array[Double]],
+                label: Array[Int] = Array[Int]()): Visualization = {
+
+    val links = Utils.getLinks(mat)
+    val nodes = Range(0, mat.length)
+
+    val data = Map("links" -> links.toList, "nodes" -> nodes.toList)
+
+    val settings = new Settings()
+      .append(Label(label))
+
+    plot("adjacency", data ++ settings.toMap)
+
+  }
+
+  /**
+   * Chloropleth map of the world or united states.
+   */
+  def map(regions: Array[String],
+          values: Array[Double],
+          colormap: String = ""): Visualization = {
+
+    if (!(regions.forall(s => s.length == 2) | regions.forall(s => s.length == 3))) {
+      throw new IllegalArgumentException("Region names must have 2 or 3 characters")
+    }
+
+    val data = Map("regions" -> regions.toList, "values" -> values.toList)
+
+    val settings = new Settings()
+      .append(Colormap(colormap))
+
+    plot("map", data ++ settings.toMap)
+
+  }
+  
 }
