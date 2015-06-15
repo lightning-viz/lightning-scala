@@ -47,6 +47,20 @@ object Make {
     Array.fill(n)(Array.fill(n)(Random.nextDouble()))
   }
 
+  def sparseLinks(n: Int, threshold: Double = 0.9): Array[Array[Int]] = {
+    val conn = Array.fill(n)(Array.fill(n){
+      val rnd = Random.nextDouble()
+      if (rnd > threshold) {
+        rnd
+      } else {
+        0.0
+      }
+    })
+    conn.zipWithIndex
+      .flatMap{case (row, i) => row.zipWithIndex
+      .filter{case (x, j) => x != 0}.map{case (x, j) => Array(i, j, x).map(_.toInt)}}
+  }
+
   def sparseMatrix(n: Int, threshold: Double = 0.9): Array[Array[Double]] = {
     Array.fill(n)(Array.fill(n){
       val rnd = Random.nextDouble()

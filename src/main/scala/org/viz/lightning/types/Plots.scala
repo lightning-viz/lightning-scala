@@ -44,14 +44,14 @@ trait Plots extends Base {
   }
 
   /**
-   * Force-directed network from a connectivity matrix.
+   * Force-directed network from connectivity.
    */
-  def force(matrix: Array[Array[Double]],
+  def force(conn: Array[Array[Double]],
             label: Array[Int] = Array[Int](),
             size: Array[Double] = Array[Double]()): Visualization = {
 
-    val links = Utils.getLinks(matrix)
-    val nodes = Range(0, matrix.length)
+    val links = Utils.getLinks(conn)
+    val nodes = Utils.getNodes(conn)
 
     val data = Map("links" -> links.toList, "nodes" -> nodes.toList)
 
@@ -98,13 +98,13 @@ trait Plots extends Base {
   }
 
   /**
-   * Sparse adjacency matrix with labels.
+   * Sparse adjacency matrix with labels from connectivity.
    */
-  def adjacency(matrix: Array[Array[Double]],
+  def adjacency(conn: Array[Array[Double]],
                 label: Array[Int] = Array[Int]()): Visualization = {
 
-    val links = Utils.getLinks(matrix)
-    val nodes = Range(0, matrix.length)
+    val links = Utils.getLinks(conn)
+    val nodes = Utils.getNodes(conn)
 
     val data = Map("links" -> links.toList, "nodes" -> nodes.toList)
 
@@ -136,15 +136,15 @@ trait Plots extends Base {
   }
 
   /**
-   * Node-link graph from spatial points and a connectivity matrix.
+   * Node-link graph from spatial points and connectivity.
    */
   def graph(x: Array[Double],
             y: Array[Double],
-            matrix: Array[Array[Double]],
+            conn: Array[Array[Double]],
             label: Array[Int] = Array[Int](),
             size: Array[Double] = Array[Double]()): Visualization = {
 
-    val links = Utils.getLinks(matrix)
+    val links = Utils.getLinks(conn)
     val nodes = Utils.getPoints(x, y)
     val data = Map("links" -> links, "nodes" -> nodes.toList)
 
@@ -156,15 +156,15 @@ trait Plots extends Base {
   }
 
   /**
-   * Node-link graph with bundled edges from spatial points and a connectivity matrix.
+   * Node-link graph with bundled edges from spatial points and connectivity.
    */
   def graphBundled(x: Array[Double],
                    y: Array[Double],
-                   matrix: Array[Array[Double]],
+                   conn: Array[Array[Double]],
                    label: Array[Int] = Array[Int](),
                    size: Array[Double] = Array[Double]()): Visualization = {
 
-    val links = Utils.getLinks(matrix)
+    val links = Utils.getLinks(conn)
     val nodes = Utils.getPoints(x, y)
     val data = Map("links" -> links, "nodes" -> nodes.toList)
 

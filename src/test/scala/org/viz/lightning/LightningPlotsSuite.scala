@@ -23,8 +23,13 @@ class LightningPlotsSuite extends FunSuite with BeforeAndAfterAll {
   }
 
   test("force") {
-    lgn.force(matrix = Make.sparseMatrix(n = 30, threshold = 0.95),
-              label = Make.labels(n = 20))
+    lgn.force(conn = Make.sparseMatrix(n = 30, threshold = 0.95),
+              label = Make.labels(n = 30))
+  }
+
+  test("force (links)") {
+    lgn.force(conn = Make.sparseLinks(n = 30, threshold = 0.95),
+      label = Make.labels(n = 30))
   }
 
   test("matrix") {
@@ -32,7 +37,7 @@ class LightningPlotsSuite extends FunSuite with BeforeAndAfterAll {
   }
 
   test("adjacency") {
-    lgn.adjacency(matrix = Make.sparseMatrix(n = 10),
+    lgn.adjacency(conn = Make.sparseMatrix(n = 10),
                   label = Make.labels(n = 10))
   }
 
@@ -57,14 +62,14 @@ class LightningPlotsSuite extends FunSuite with BeforeAndAfterAll {
   test("graph") {
     lgn.graph(x = Make.values(n = 50),
               y = Make.values(n = 50),
-              matrix = Make.sparseMatrix(n = 50),
+              conn = Make.sparseMatrix(n = 50),
               label = Make.labels(n = 50))
   }
 
   test("graph-bundled") {
     lgn.graphBundled(x = Make.values(n = 50),
               y = Make.values(n = 50),
-              matrix = Make.sparseMatrix(n = 50),
+              conn = Make.sparseMatrix(n = 50),
               label = Make.labels(n = 50))
   }
 
