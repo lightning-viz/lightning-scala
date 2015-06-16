@@ -34,7 +34,7 @@ case class Colormap(colormap: String) extends Style {
       "Spectral", "Blues", "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd",
       "PuBu", "PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr",
       "YlOrRd", "Accent", "Dark2", "Paired", "Pastel1", "Pastel2",
-      "Set1", "Set2", "Set3")
+      "Set1", "Set2", "Set3", "Lightning")
     if (!valid.contains(colormap)) {
       throw new IllegalArgumentException("Colormap must be one of %s, got %s".format(valid, colormap))
     } else {
