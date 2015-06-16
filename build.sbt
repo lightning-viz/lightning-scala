@@ -20,6 +20,11 @@ libraryDependencies += "org.json4s" %% "json4s-native" % "3.2.9"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.1"
 
+assemblyExcludedJars in assembly := {
+  val cp = (fullClasspath in assembly).value
+  cp filter {_.data.getName == "IScala.jar"}
+}
+
 publishMavenStyle := true
 
 publishTo := {
