@@ -52,25 +52,25 @@ class LightningPlotsSuite extends FunSuite with BeforeAndAfterAll {
   }
 
   test("scatter") {
-    lgn.scatter(x = Make.values(n = 50, scale = 5),
-                y = Make.values(n = 50, scale = 5),
-                label = Make.labels(n = 50),
-                size = Make.sizes(n = 50),
-                alpha = Make.alphas(n = 50))
+    lgn.scatter(x = Make.gaussian(n = 50, scale = 5),
+      y = Make.gaussian(n = 50, scale = 5),
+      label = Make.labels(n = 50),
+      size = Make.sizes(n = 50),
+      alpha = Make.alphas(n = 50))
   }
 
   test("graph") {
-    lgn.graph(x = Make.values(n = 50),
-              y = Make.values(n = 50),
-              conn = Make.sparseMatrix(n = 50),
-              label = Make.labels(n = 50))
+    lgn.graph(x = Make.gaussian(n = 50),
+      y = Make.gaussian(n = 50),
+      conn = Make.sparseMatrix(n = 50),
+      label = Make.labels(n = 50))
   }
 
   test("graph-bundled") {
-    lgn.graphBundled(x = Make.values(n = 50),
-              y = Make.values(n = 50),
-              conn = Make.sparseMatrix(n = 50),
-              label = Make.labels(n = 50))
+    lgn.graphBundled(x = Make.gaussian(n = 50),
+      y = Make.gaussian(n = 50),
+      conn = Make.sparseMatrix(n = 50),
+      label = Make.labels(n = 50))
   }
 
 }

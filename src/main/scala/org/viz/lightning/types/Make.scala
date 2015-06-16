@@ -43,6 +43,10 @@ object Make {
     Array.fill(n)(Random.nextDouble() * scale)
   }
 
+  def gaussian(n: Int, scale: Double = 1): Array[Double] = {
+    Array.fill(n)(Random.nextGaussian() * scale)
+  }
+
   def matrix(n: Int): Array[Array[Double]] = {
     Array.fill(n)(Array.fill(n)(Random.nextDouble()))
   }
