@@ -5,7 +5,7 @@ trait Style {
   def name: String
   def defined: Boolean
   def validate = true: Boolean
-  def value: Any
+  def contents: Any
 
 }
 
@@ -13,7 +13,15 @@ case class Label(label: Array[Int]) extends Style {
 
   def name = "label"
   def defined = label.length > 0
-  def value = label.toList
+  def contents = label.toList
+
+}
+
+case class Value(value: Array[Double]) extends Style {
+
+  def name = "value"
+  def defined = value.length > 0
+  def contents = value.toList
 
 }
 
@@ -33,14 +41,14 @@ case class Colormap(colormap: String) extends Style {
       true
     }
   }
-  def value = colormap
+  def contents = colormap
 
 }
 
 case class Axis(axis: String, name: String) extends Style {
 
   def defined = axis != ""
-  def value = axis
+  def contents = axis
 
 }
 
@@ -48,7 +56,7 @@ case class Alpha(alpha: Array[Double]) extends Style {
 
   def name = "alpha"
   def defined = alpha.length != 0
-  def value = alpha.toList
+  def contents = alpha.toList
 
 }
 
@@ -56,7 +64,7 @@ case class Size(size: Array[Double]) extends Style {
 
   def name = "size"
   def defined = size.length != 0
-  def value = size.toList
+  def contents = size.toList
 
 }
 

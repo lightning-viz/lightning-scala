@@ -7,7 +7,7 @@ class Settings(var map: Map[String, Any]) {
   def append(style: Style): this.type = {
     if (style.defined) {
       style.validate
-      map += style.name -> style.value
+      map += style.name -> style.contents
     }
     this
   }

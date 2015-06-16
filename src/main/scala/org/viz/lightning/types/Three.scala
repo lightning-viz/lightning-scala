@@ -19,7 +19,7 @@ trait Three extends Base {
     val settings = new Settings()
       .append(List(Label(label), Size(size)))
 
-    plot("scatter3", data ++ settings.toMap)
+    plot("scatter-3", data ++ settings.toMap)
   }
 
 }

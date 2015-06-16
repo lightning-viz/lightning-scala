@@ -48,6 +48,8 @@ trait Plots extends Base {
    */
   def force(conn: Array[Array[Double]],
             label: Array[Int] = Array[Int](),
+            value: Array[Double] = Array[Double](),
+            colormap: String = "",
             size: Array[Double] = Array[Double]()): Visualization = {
 
     val links = Utils.getLinks(conn)
@@ -56,7 +58,7 @@ trait Plots extends Base {
     val data = Map("links" -> links.toList, "nodes" -> nodes.toList)
 
     val settings = new Settings()
-      .append(List(Label(label), Size(size)))
+      .append(List(Label(label), Value(value), Colormap(colormap), Size(size)))
 
     plot("force", data ++ settings.toMap)
 
@@ -68,6 +70,8 @@ trait Plots extends Base {
   def scatter(x: Array[Double],
               y: Array[Double],
               label: Array[Int] = Array[Int](),
+              value: Array[Double] = Array[Double](),
+              colormap: String = "",
               size: Array[Double] = Array[Double](),
               alpha: Array[Double] = Array[Double](),
               xaxis: String = "",
@@ -77,7 +81,7 @@ trait Plots extends Base {
     val data = Map("points" -> points.toList)
 
     val settings = new Settings()
-      .append(List(Label(label), Size(size), Alpha(alpha)))
+      .append(List(Label(label), Value(value), Colormap(colormap), Size(size), Alpha(alpha)))
       .append(List(Axis(xaxis, "xaxis"), Axis(yaxis, "yaxis")))
 
     plot("scatter", data ++ settings.toMap)
@@ -142,6 +146,8 @@ trait Plots extends Base {
             y: Array[Double],
             conn: Array[Array[Double]],
             label: Array[Int] = Array[Int](),
+            value: Array[Double] = Array[Double](),
+            colormap: String = "",
             size: Array[Double] = Array[Double]()): Visualization = {
 
     val links = Utils.getLinks(conn)
@@ -149,7 +155,7 @@ trait Plots extends Base {
     val data = Map("links" -> links, "nodes" -> nodes.toList)
 
     val settings = new Settings()
-      .append(List(Label(label), Size(size)))
+      .append(List(Label(label), Value(value), Colormap(colormap), Size(size)))
 
     plot("graph", data ++ settings.toMap)
 
@@ -162,6 +168,8 @@ trait Plots extends Base {
                    y: Array[Double],
                    conn: Array[Array[Double]],
                    label: Array[Int] = Array[Int](),
+                   value: Array[Double] = Array[Double](),
+                   colormap: String = "",
                    size: Array[Double] = Array[Double]()): Visualization = {
 
     val links = Utils.getLinks(conn)
@@ -169,7 +177,7 @@ trait Plots extends Base {
     val data = Map("links" -> links, "nodes" -> nodes.toList)
 
     val settings = new Settings()
-      .append(List(Label(label), Size(size)))
+      .append(List(Label(label), Value(value), Colormap(colormap), Size(size)))
 
     plot("graph-bundled", data ++ settings.toMap)
 
