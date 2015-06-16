@@ -6,6 +6,13 @@ import scalaj.http._
 
 class Visualization(val lgn: Lightning, val id: Int, val name: String) {
 
+  if (lgn.isNotebook) {
+    implicit val HTMLViz = org.refptr.iscala.display.HTMLDisplay[Visualization] { viz =>
+      viz.getHTML
+    }
+    org.refptr.iscala.display.display_html(this)
+  }
+
   def formatURL(url: String): String = {
     val out = url.last.toString match {
       case "/" => url

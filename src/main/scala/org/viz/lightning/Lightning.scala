@@ -11,6 +11,7 @@ class Lightning (var host: String) extends Plots with Three with Linked {
 
   var session: Int = -1
   var auth: Option[(String, String)] = None
+  var isNotebook: Boolean = false
 
   def this() = this("http://localhost:3000")
 
@@ -50,6 +51,14 @@ class Lightning (var host: String) extends Plots with Three with Linked {
 
   def useHost(host: String): this.type = {
     this.host = host
+    this
+  }
+
+  def enableNotebook(): this.type = {
+    this.isNotebook = true
+    implicit val HTMLViz = org.refptr.iscala.display.HTMLDisplay[Visualization] { viz =>
+      viz.getHTML
+    }
     this
   }
 
