@@ -56,9 +56,9 @@ class Lightning (var host: String) extends Plots with Three with Linked {
 
   def enableNotebook(): this.type = {
     this.isNotebook = true
-    implicit val HTMLViz = org.refptr.iscala.display.HTMLDisplay[Visualization] { viz =>
-      viz.getHTML
-    }
+    //implicit val HTMLViz = org.refptr.iscala.display.HTMLDisplay[Visualization] { viz =>
+    //  viz.getHTML
+    //}
     this
   }
 
