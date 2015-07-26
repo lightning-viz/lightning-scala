@@ -58,4 +58,5 @@ class Visualization(val lgn: Lightning, val id: Int, val name: String) {
     lgn.post(url, payload)
   }
 
+
 }
