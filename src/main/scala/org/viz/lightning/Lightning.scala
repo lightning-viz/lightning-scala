@@ -96,9 +96,7 @@ class Lightning (var host: String) extends Plots with Three with Linked {
 
     val blob = Map("data" -> data, "type" -> name)
     val payload = Serialization.write(blob)
-
     post(url, payload, method)
-
   }
 
 }

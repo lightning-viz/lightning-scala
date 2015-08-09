@@ -1,7 +1,8 @@
 package org.viz.lightning
 
+import org.json4s.DefaultFormats
+import org.json4s.native.Serialization
 import scala.language.dynamics
-
 import scalaj.http._
 
 class Visualization(val lgn: Lightning, val id: Int, val name: String) {
