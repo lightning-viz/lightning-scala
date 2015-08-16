@@ -51,12 +51,12 @@ class Visualization(val lgn: Lightning, val id: Int, val name: String) {
     request.asString.body
   }
 
-  def appendData(data : Array[Array[Double]]) : Int = {
+  def append(payload: Map[String, Any]) : Visualization = {
     val url = lgn.host + "/sessions/" + lgn.session + "/visualizations/" + this.id + "/data/"
     implicit val formats = DefaultFormats
-    val blob = Map("data" -> Map("series" -> data.toList))
-    val payload = Serialization.write(blob)
-    lgn.post(url, payload)
+    val blob = Map("data" -> payload)
+    lgn.post(url, Serialization.write(blob))
+    this
   }
 
 }

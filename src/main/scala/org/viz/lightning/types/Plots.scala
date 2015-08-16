@@ -28,12 +28,13 @@ trait Plots extends Base {
    * One or more one-dimensional series data streamed as lines.
    */
   def lineStreaming(series: Array[Array[Double]],
-                    size: Array[Double],
+                    size: Array[Double] = Array[Double](),
                     color: Array[Array[Double]] = Array[Array[Double]](),
                     alpha: Array[Double] = Array[Double] (),
                     label: Array[Int] = Array[Int](),
                     xaxis: String = "",
-                    yaxis: String = ""): Visualization = {
+                    yaxis: String = "",
+                    viz: Visualization = null): Visualization = {
 
     val data = Map("series" -> series.toList, "color" -> color.toList)
 
@@ -41,7 +42,14 @@ trait Plots extends Base {
       .append(List(Label(label), Size(size), Alpha(alpha)))
       .append(List(Axis(xaxis, "xaxis"), Axis(yaxis, "yaxis")))
 
-    plot("line-streaming", data ++ settings.toMap)
+    val payload = data ++ settings.toMap
+
+    if (viz == null) {
+      plot("line-streaming", payload)
+
+    } else {
+      viz.append(payload)
+    }
 
   }
 
