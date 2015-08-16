@@ -71,7 +71,7 @@ class LightningPlotsSuite extends FunSuite with BeforeAndAfterAll {
       label = Make.labels(n = 50))
   }
 
-  test("graph-bundled") {
+  test("graph bundled") {
     lgn.graphBundled(x = Make.gaussian(n = 50),
       y = Make.gaussian(n = 50),
       conn = Make.sparseMatrix(n = 50),
