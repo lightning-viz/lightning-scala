@@ -25,25 +25,6 @@ trait Plots extends Base {
   }
 
   /**
-   * Browsable array of line plots.
-   */
-  def lineStacked(series: Array[Array[Double]],
-                  label: Array[Int] = Array[Int](),
-                  size: Array[Double] = Array[Double](),
-                  alpha: Array[Double] = Array[Double](),
-                  xaxis: String = "",
-                  yaxis: String = ""): Visualization = {
-
-    val data = Map("series" -> series.toList)
-
-    val settings = new Settings()
-      .append(List(Label(label), Size(size)))
-
-    plot("line-stacked", data ++ settings.toMap)
-
-  }
-
-  /**
    * One or more one-dimensional series data streamed as lines.
    */
   def lineStreaming(series: Array[Array[Double]],
