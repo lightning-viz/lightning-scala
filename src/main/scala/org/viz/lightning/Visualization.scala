@@ -1,7 +1,8 @@
 package org.viz.lightning
 
+import org.json4s.DefaultFormats
+import org.json4s.native.Serialization
 import scala.language.dynamics
-
 import scalaj.http._
 
 class Visualization(val lgn: Lightning, val id: Int, val name: String) {
@@ -48,6 +49,14 @@ class Visualization(val lgn: Lightning, val id: Int, val name: String) {
       request = request.auth(lgn.auth.get._1, lgn.auth.get._2)
     }
     request.asString.body
+  }
+
+  def appendData(data : Array[Array[Double]]) : Int = {
+    val url = lgn.host + "/sessions/" + lgn.session + "/visualizations/" + this.id + "/data/"
+    implicit val formats = DefaultFormats
+    val blob = Map("data" -> Map("series" -> data.toList))
+    val payload = Serialization.write(blob)
+    lgn.post(url, payload)
   }
 
 }
