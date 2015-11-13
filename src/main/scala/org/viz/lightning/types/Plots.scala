@@ -101,9 +101,11 @@ trait Plots extends Base {
    * Dense matrix or a table as a heat map.
    */
   def matrix(matrix: Array[Array[Double]],
-             colormap: String = ""): Visualization = {
+             colormap: String = "",
+             rowLabels: Array[String] = Array[String](),
+             colLabels: Array[String] = Array[String]()): Visualization = {
 
-    val data = Map("matrix" -> matrix.toList)
+    val data = Map("matrix" -> matrix.toList, "rowLabels" -> rowLabels.toList,"columnLabels" -> colLabels.toList)
 
     val settings = new Settings()
       .append(Colormap(colormap))
