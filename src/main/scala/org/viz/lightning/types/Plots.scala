@@ -116,7 +116,7 @@ trait Plots extends Base {
    */
   def adjacency(conn: Array[Array[Double]],
                 label: Array[Int] = Array[Int](),
-                labels: Array[String]): Visualization = {
+                labels: Array[String] = Array[String]()): Visualization = {
 
     val links = Utils.getLinks(conn)
     val nodes = Utils.getNodes(conn)
