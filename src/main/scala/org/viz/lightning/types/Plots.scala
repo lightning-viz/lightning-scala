@@ -117,12 +117,13 @@ trait Plots extends Base {
    * Sparse adjacency matrix with labels from connectivity.
    */
   def adjacency(conn: Array[Array[Double]],
-                label: Array[Int] = Array[Int]()): Visualization = {
+                label: Array[Int] = Array[Int](),
+                labels: Array[String] = Array[String]()): Visualization = {
 
     val links = Utils.getLinks(conn)
     val nodes = Utils.getNodes(conn)
 
-    val data = Map("links" -> links.toList, "nodes" -> nodes.toList)
+    val data = Map("links" -> links.toList, "nodes" -> nodes.toList, "labels" -> labels.toList)
 
     val settings = new Settings()
       .append(Label(label))
