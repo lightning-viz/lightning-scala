@@ -1,5 +1,6 @@
 # Lightning scala client
 Scala client for the Lightning data visualization server (WIP)
+[![Build Status](https://travis-ci.org/lightning-viz/lightning-scala.svg?branch=master)](https://travis-ci.org/lightning-viz/lightning-scala)
 
 ##installation
 Build the project using `sbt` and the [assembly](https://github.com/sbt/sbt-assembly) plugin 
