@@ -63,7 +63,7 @@ class Lightning (var host: String) extends Plots with Three with Linked {
   }
 
   def checkSession() {
-    if (session == -1) {
+    if (session == "") {
       this.createSession()
     }
   }
