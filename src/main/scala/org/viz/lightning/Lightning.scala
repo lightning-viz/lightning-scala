@@ -9,7 +9,7 @@ import scalaj.http._
 
 class Lightning (var host: String) extends Plots with Three with Linked {
 
-  var session: Int = -1
+  var session: String = ""
   var auth: Option[(String, String)] = None
   var isNotebook: Boolean = false
 
@@ -40,11 +40,11 @@ class Lightning (var host: String) extends Plots with Three with Linked {
 
     val id = postData(url, data, name)
 
-    new Visualization(this, id.toInt, name)
+    new Visualization(this, id, name)
 
   }
 
-  def useSession(id: Int): this.type = {
+  def useSession(id: String): this.type = {
     this.session = id
     this
   }
@@ -63,12 +63,12 @@ class Lightning (var host: String) extends Plots with Three with Linked {
   }
 
   def checkSession() {
-    if (session == -1) {
+    if (session == "") {
       this.createSession()
     }
   }
 
-  def post(url: String, payload: String, method: String = "POST"): Int = {
+  def post(url: String, payload: String, method: String = "POST"): String = {
 
     var request = Http(url).postData(payload).method(method)
       .header("content-type", "application/json")
@@ -85,12 +85,12 @@ class Lightning (var host: String) extends Plots with Three with Linked {
       case "unauthorized" => throw new Exception("Unauthorized. Check username and/or password.")
       case _ => {
         val json = parse(response.body)
-        (json \ "id").extract[Int]
+        (json \ "id").extract[String]
       }
     }
   }
 
-  def postData(url: String, data: Map[String, Any], name: String, method: String = "POST"): Int = {
+  def postData(url: String, data: Map[String, Any], name: String, method: String = "POST"): String = {
 
     implicit val formats = DefaultFormats
 
