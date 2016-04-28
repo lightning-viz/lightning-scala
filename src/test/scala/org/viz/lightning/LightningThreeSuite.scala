@@ -8,7 +8,7 @@ class LightningThreeSuite extends FunSuite with BeforeAndAfterAll {
   var lgn: Lightning = _
 
   override def beforeAll() {
-    lgn = Lightning("http://localhost:3000")
+    lgn = Lightning("http://public.lightning-viz.org")
     lgn.createSession("test-three")
   }
 

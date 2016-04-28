@@ -77,6 +77,37 @@ trait Plots extends Base {
   /**
    *  Two-dimensional data as points.
    */
+  def scatterStreaming(x: Array[Double],
+              y: Array[Double],
+              label: Array[Int] = Array[Int](),
+              value: Array[Double] = Array[Double](),
+              colormap: String = "",
+              size: Array[Double] = Array[Double](),
+              alpha: Array[Double] = Array[Double](),
+              xaxis: String = "",
+              yaxis: String = "",
+              viz: Visualization = null): Visualization = {
+
+    val points = Utils.getPoints(x, y)
+    val data = Map("points" -> points.toList)
+
+    val settings = new Settings()
+      .append(List(Label(label), Value(value), Colormap(colormap), Size(size), Alpha(alpha)))
+      .append(List(Axis(xaxis, "xaxis"), Axis(yaxis, "yaxis")))
+
+    val payload = data ++ settings.toMap
+
+    if (viz == null) {
+      plot("scatter-streaming", payload)
+    } else {
+      viz.append(payload)
+    }
+
+  }
+
+  /**
+   *  Streaming two-dimensional data as points.
+   */
   def scatter(x: Array[Double],
               y: Array[Double],
               label: Array[Int] = Array[Int](),
@@ -96,6 +127,7 @@ trait Plots extends Base {
 
     plot("scatter", data ++ settings.toMap)
   }
+
 
   /**
    * Dense matrix or a table as a heat map.
