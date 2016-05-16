@@ -58,5 +58,9 @@ class Visualization(val lgn: Lightning, val id: String, val name: String) {
     lgn.post(url, Serialization.write(blob))
     this
   }
-
+	
+  def getPublicLink: String = {
+    this.getPermalinkURL + "/public/"
+  }
+  
 }
