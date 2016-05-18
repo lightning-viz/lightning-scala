@@ -108,7 +108,6 @@ trait Plots extends Base {
   /**
    *  Streaming two-dimensional data as points.
    */
-  //changed
   def scatter(x: Array[Double],
               y: Array[Double],
               label: Array[Int] = Array[Int](),
