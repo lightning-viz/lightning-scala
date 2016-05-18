@@ -68,3 +68,10 @@ case class Size(size: Array[Double]) extends Style {
 
 }
 
+case class Group(group: Array[Int]) extends Style {
+
+  def name = "group"
+  def defined = group.length > 0
+  def contents = group.toList
+
+}

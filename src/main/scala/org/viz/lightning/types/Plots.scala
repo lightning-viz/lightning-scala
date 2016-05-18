@@ -108,10 +108,12 @@ trait Plots extends Base {
   /**
    *  Streaming two-dimensional data as points.
    */
+  //changed
   def scatter(x: Array[Double],
               y: Array[Double],
               label: Array[Int] = Array[Int](),
               value: Array[Double] = Array[Double](),
+              group: Array[Int] = Array[Int](),
               colormap: String = "",
               size: Array[Double] = Array[Double](),
               alpha: Array[Double] = Array[Double](),
@@ -122,7 +124,7 @@ trait Plots extends Base {
     val data = Map("points" -> points.toList)
 
     val settings = new Settings()
-      .append(List(Label(label), Value(value), Colormap(colormap), Size(size), Alpha(alpha)))
+      .append(List(Label(label), Value(value), Colormap(colormap), Size(size), Alpha(alpha) , Group(group) ))
       .append(List(Axis(xaxis, "xaxis"), Axis(yaxis, "yaxis")))
 
     plot("scatter", data ++ settings.toMap)
