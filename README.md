@@ -25,7 +25,7 @@ lgn.createSession()
 lgn.createSession("provide an optional session name")
 ```
 
-###creating a visualization
+### creating a visualization
 Methods are available for the default visualization types included with Lightning
 ```
 lgn.line(Array(Array(1.0,1.0,2.0,3.0,9.0,20.0)))
